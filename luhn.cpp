@@ -8,7 +8,7 @@ int multiply(int number)
 int main()
 {
 	std::cout << " Enter ur card number: ";
-	std::string card{ "" };
+	std::string card;
 	std::cin >> card;
 
 	const int length{ static_cast<int>(card.length()) };
@@ -20,18 +20,17 @@ int main()
 	for (int i{ 0 }; i < length; ++i)
 	{
 
-		if (isDouble == true)
+		if (isDouble == false)
 		{
-			int cardNumber = card[i] - offset;
-			int rem{};
+			const int card_number = card[i] - offset;
 			int sumTemp{};
 
-			int temp{ multiply(cardNumber) };
+			int temp{ multiply(card_number) };
 			std::string sus{ static_cast<char>(temp) };
 
 			while (temp > 0)
 			{
-				rem = temp % 10;
+				const int rem = temp % 10;
 				sumTemp = sumTemp + rem;
 				temp = temp / 10;
 			}
@@ -40,7 +39,7 @@ int main()
 		}
 		else
 		{
-			int cardNumber = card[i] - offset;
+			const int cardNumber = card[i] - offset;
 
 			sum += cardNumber;
 		}
@@ -48,10 +47,47 @@ int main()
 		isDouble = !isDouble;
 	}
 
+
+	if (const int tempSum = sum % 10; tempSum > 0)
+	{
+		isDouble = false; // reset to false
+		sum = 0; // reset to 0
+
+		for (int i{ 0 }; i < length; ++i)
+		{
+
+			if (isDouble == true) // some cards are only valid if the multiplied numbers are the odd and not the even ones.
+			{
+				const int card_number = card[i] - offset;
+				int sumTemp{};
+
+				int temp{ multiply(card_number) };
+				std::string sus{ static_cast<char>(temp) };
+
+				while (temp > 0)
+				{
+					const int rem = temp % 10;
+					sumTemp = sumTemp + rem;
+					temp = temp / 10;
+				}
+
+				sum += sumTemp;
+			}
+			else
+			{
+				const int cardNumber = card[i] - offset;
+
+				sum += cardNumber;
+			}
+
+			isDouble = !isDouble;
+		}
+	}
+
 	sum = sum % 10;
 
 	if (sum == 0)
-		std::cout << "This card is valid";
+		std::cout << "This is a valid card";
 	else
 		std::cout << "This card isn't valid";
 }
