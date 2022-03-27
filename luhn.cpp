@@ -26,7 +26,6 @@ int main()
 			int sumTemp{};
 
 			int temp{ multiply(card_number) };
-			std::string sus{ static_cast<char>(temp) };
 
 			while (temp > 0)
 			{
@@ -62,7 +61,6 @@ int main()
 				int sumTemp{};
 
 				int temp{ multiply(card_number) };
-				std::string sus{ static_cast<char>(temp) };
 
 				while (temp > 0)
 				{
